@@ -1,0 +1,21 @@
+{
+    "name": "vueps",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "json": "json-server --watch db.json --port 8888"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eepson123tw/VuePs.git"
+    },
+    "author": "Allen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/eepson123tw/VuePs/issues"
+    },
+    "homepage": "https://github.com/eepson123tw/VuePs#readme",
+    "dependencies": {
+        "json-server": "^0.16.3"
+    }
+}
