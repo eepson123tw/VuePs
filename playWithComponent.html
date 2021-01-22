@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1-creater :text="text"></h1-creater>
+        <h2-creater v-for="text of textList" :text="text"></h2-creater>
+        <!-- <h3-creater v-for="data of dataList" :name='data.name' :old="data.old"></h3-creater> -->
+        <h3-creater v-for="data of dataList" v-bind="data"></h3-creater>
+        <my-button @button-click="alert"></my-button>
+        <h1>{{text}}</h1>
+        <guess-who @true="change"></guess-who>
+
+
+    </div>
+
+
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+<script>
+    //嘗試用 props 由父層傳入內層
+    Vue.component('h1-creater', {
+
+        props: ['text'],
+
+        data() {
+            return {
+                text2: `我不是`
+            }
+        },
+
+        template: `<h1>{{text}}</h1>`
+
+
+    })
+
+    //嘗試用 props 由父層傳入內層
+    //並結合v-for 迴圈 導入值
+    Vue.component('h2-creater', {
+
+        props: ['text'],
+        template: `<h2>{{text}}</h2>`
+
+
+    })
+
+    //嘗試用 props 由父層傳入內層
+    //並結合v-for 迴圈導入值並使用blind去導出整包資料,在使用props依照 name/old 生成畫面。
+
+    Vue.component('h3-creater', {
+
+        props: ['name', 'old'],
+
+        template: `<h3>姓名:{{name}}:年齡{{old}}</h3>`
+
+    })
+
+    Vue.component('my-button', {
+
+        template: `<button @click="change">123</button>`,
+        methods: {
+            change() {
+                this.$emit("button-click", `我的天`)
+            }
+        }
+
+    })
+
+    Vue.component('guess-who', {
+
+
+        template: `
+        <button @click="change">事實按鈕</button>`,
+        methods: {
+            change() {
+                this.$emit('true', `我是施周杰`);
+            }
+        }
+
+    })
+
+
+
+    let vm = new Vue({
+
+                el: "#app",
+
+                data() {
+                    return {
+                        text: `我可能是金城武`,
+                        textList: ['我可能是金城1', '我可能是金城2', '我可能是金城3'],
+                        dataList: [{
+                            name: "alex",
+                            old: 17,
+                        }, {
+                            name: "jack",
+                            old: 20,
+                        }, {
+                            name: "queen",
+                            old: 18,
+                        }]
+                    }
+                },
+                methods: {
+                    alert(text) {
+                        alert(`${text}按了按鈕唷!`);
+                    },
+                    change(changeman) {
+                        //         return `123123`
+                        //     }
+                    },
+                    // computed: {
+                    //     change(changeman) {
+                    //         return `123123`
+                    //     }
+                    // }
+
+
+
+
+
+                })
+</script>
+
+
+
+</html>

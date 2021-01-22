@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay7</title>
+    <style>
+        li button {
+            display: none;
+        }
+        
+        li:hover button {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <p><input type="text" v-model='inputtext' @compositionstart='cstartHandler' @compositionend='csendHandler' @keyup.enter='inputHandler'></p>
+        <p> <button @click="show= 'all'">全部</button>
+            <button @click="show= 'open'">未完成</button>
+            <button @click="show= 'done'">完成</button>
+        </p>
+        <ul>
+            <li v-for='(item,index)
+                of
+                filterList'>
+                <template v-if='editing===index'>
+                    <input
+                        type="text"
+                        v-model='editingText'
+                    >
+                    <button @click='completeHandler'>完成</button>
+                </template>
+                <template v-else>
+                    <p><input
+                            type="checkbox"
+                            v-model='item.status'
+                        > {{item.content}}
+                        <button @click='editHandler(item)'>修改</button>
+                        <button @click='deleteHandler(item)'>刪除</button>
+                    </p>
+                </template>
+
+            </li>
+        </ul>
+
+
+    </div>
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+            data: {
+                inputtext: '',
+                list: [],
+                editing: null,
+                show: 'all',
+                editingText: "",
+                compositionStatus: false, //預設還沒輸入時是false
+            },
+            methods: {
+                inputHandler() {
+                    if (this.compositionStatus) return false;
+                    console.log(`in `);
+                    this.list.push({
+                        content: this.inputtext,
+                        timestamp: new Date().getTime(),
+                        status: false,
+                    })
+                    this.inputtext = '';
+
+                },
+                cstartHandler() {
+                    this.compositionStatus = true;
+                },
+                csendHandler() {
+                    his.compositionStatus = false;
+                },
+                deleteHandler(item) { //用index 有風險
+                    this.list = this.list.filter((target) => {
+                        return target != item; //只要不是item就可以留下來
+                    })
+                },
+                editHandler(item) {
+                    this.editing = item;
+                    this.editingText = item.content;
+                },
+                completeHandler() {
+                    this.list[this.editing].content = this.editingText;
+                    this.editingText = '';
+                    this.editing = null;
+
+                },
+            },
+            computed: {
+                filterList() {
+                    //all open done
+                    if (this.show === 'all') {
+                        return this.list
+                    } else if (this.show === 'open') {
+                        return this.list.filter((item) => {
+                            return item.status === false
+                        })
+                    } else if (this.show === 'done') {
+                        return this.list.filter((item) => {
+                            return item.status === true
+                        })
+                    } else {
+                        return {}
+                    };
+                },
+            },
+        });
+    </script>
+
+</body>
+
+</html>

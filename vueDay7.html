@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay4</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- <h1>{{count}}</h1>
+
+        <button @click='count-=1'>-1</button>
+        <button @click='count+=1'>+1</button> -->
+        <button v-for='(cotent,index) of contents' @click='click2(index,$event)' :data-index='index'>{{index}}</button>
+
+        <div>
+            <h1 v-for='(content,index) of contents' v-show='index===count'> {{content}}</h1>
+        </div>
+
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data: {
+                count: 0,
+                total: 4,
+                contents: ['aaa', 'bbb', 'ccc', 'ddd'],
+            },
+            methods: {
+                clickHanlder(e) {
+                    console.log(e);
+                    this.count = e.target.dataset.index * 1; //會傳承字串唷@@@@!!!!
+                },
+                click2(index, event) { //若傳完值仍要調用event事件，需要用vue的設定讓編譯器理解此為event事件。
+                    this.count = index;
+                    console.log(event);
+                }
+            },
+        });
+    </script>
+
+</body>
+
+</html>

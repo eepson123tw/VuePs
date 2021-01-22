@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue</title>
+</head>
+
+<body>
+
+    <div class="app">
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <script>
+        let vm = new Vue({
+            el: '.app',
+            template: `<span style=color:red;>{{this.msg}}</span>`,
+            data: {
+                msg: 'Hello Vue',
+            },
+            // created() {
+            //     console.log(this.msg);
+            // }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay4</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h1 v-for='(value,index) in computedUser'>{{value.name}}</h1>
+        <h1 v-for='(value,key,index) in userListObject' :id='key'>{{key}}</h1>
+
+        <!-- <span v-for='num in 10'>{{num}}</span>
+        <div v-for="(value,key) of userArray">{{value.name}}</div> -->
+
+
+        <!-- <h1 v-if='show'>hello vue</h1>
+        <h1 v-else>XXX</h1> -->
+        <!-- <h1 v-if="show">
+            <script>
+                alert('111')
+            </script>
+        </h1>
+        <h1 v-show="show">
+            <script>
+                alert('111')
+            </script>
+        </h1> -->
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data: {
+                show: false,
+                userArray: [{
+                    name: 'alex',
+                    gender: 'male',
+                }, {
+                    name: 'sara',
+                    gender: 'female',
+                }],
+                userListObject: {
+                    alex: 'male',
+                    sara: 'female',
+                },
+            },
+            computed: {
+                computedUser() {
+                    return this.userArray.filter((user) => {
+                        return user.gender == 'female'
+                    })
+                }
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

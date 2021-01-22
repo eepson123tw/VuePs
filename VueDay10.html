@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay7</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <basic-component :basic-name=515></basic-component>
+
+        <!-- <adv-compunent></adv-compunent> -->
+
+    </div>
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+    <script>
+        const BasicComponent = {
+
+            template: `<div>{{basicName}}</div>`,
+            // props: ['basicName'],
+            props: {
+                basicName: Number,
+                "is-active": Boolean,
+            },
+        };
+        // const AdvCompunent = {
+
+        //     template: ` <basic-compunent></basic-compunent>`,
+        //     components: {
+        //         BasicCompunent,
+        //     },
+        // };
+
+        // const components = {
+        //     BasicCompunent,
+        //     AdvCompunent,
+        // };
+
+
+        Vue.component('basic-component', BasicComponent);
+        // Vue.component('adv-component', AdvCompunent);
+
+
+        new Vue({
+            el: '#app',
+            // components,
+        })
+    </script>
+
+</body>
+
+</html>

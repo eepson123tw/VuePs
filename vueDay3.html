@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3</title>
+</head>
+
+<body>
+
+    <div id="app">
+        {{reversedMessage}}
+        </br>
+        {{reversedMessagel()}}
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <script>
+        new Vue({
+
+            el: '#app',
+            data: {
+                message: 'Hello'
+            },
+            computed: {
+                // a computed getter
+                reversedMessage: function() {
+                    console.log('computed');
+                    // `this` points to the vm instance
+                    return this.message.split('').reverse().join('')
+                }
+            },
+            methods: {
+                reversedMessagel: function() {
+                    // `this` points to the vm instance
+                    console.log('methods');
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+
+
+
+</body>
+
+</html>

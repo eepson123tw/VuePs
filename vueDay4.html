@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay4</title>
+</head>
+
+<style>
+    .active {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+    }
+</style>
+
+<body>
+
+    <div id="app" :class='{active:isActive}'>
+        <a :href="link.href" :target="link.target">{{link.content}}</a>
+        <input :type="input.type" :data-aaa="link.content">
+        <div :class="classContent" :style='styleObj'>test</div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data() {
+                return {
+                    isActive: true,
+
+
+                    link: {
+                        href: 'http://www.google.com/',
+                        target: '_blank',
+                        content: 'Google',
+                    },
+                    input: {
+                        type: 'text',
+                    },
+                    classArrat: ['aaa', 'bbb', 'ccc'],
+                    classContent: {
+                        aaa: true,
+                        bbb: true,
+                        ccc: true,
+                        dd_ee: true,
+                        'ff-gg': true, //有dash 要用引號包住
+                    },
+                    styleObj: {
+                        color: 'red',
+                        fontSize: '120px',
+                    }
+
+                }
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

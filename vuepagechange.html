@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay7</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <div v-for='(item,index) in pageList'>{{item}}</div>
+        <button v-show="nowPage>1" @click='change(-1)'>prev</button>
+        <button v-show="totalPage > nowPage" @click='change(+1)'>NeXt</button>
+    </div>
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data: {
+                list: ['aaa', 'bbb', 'ccc', 'ddd', 'eeee', 'fffff', '1111111', '2222222', ],
+                perPage: 4,
+                nowPage: 1,
+            },
+            computed: {
+                pageList() {
+                    let start = (this.nowPage - 1) * 4; //起始頁面-1 後取四筆
+                    return this.list.slice(start, start + this.perPage);
+
+                },
+                totalPage() {
+                    return Math.ceil(this.list.length / this.perPage); //無條件進位
+                },
+            },
+            methods: {
+                change(direct) {
+                    let page = this.nowPage + direct;
+                    this.nowPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+                }
+            },
+        });
+    </script>
+
+</body>
+
+</html>

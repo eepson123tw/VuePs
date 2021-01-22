@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.css' />
+    <title>shoppingCar</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    body {
+        width: 100%;
+        height: 100%;
+    }
+    
+    #app {
+        width: 100%;
+        height: 1200px;
+        padding: 50px;
+        box-sizing: border-box;
+    }
+    
+    h1 {
+        text-align: center;
+        margin: 100px;
+    }
+    
+    table {
+        width: 100%;
+        border: 1px solid black;
+        background: brown;
+    }
+    
+    tr {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    
+    td {
+        width: 100%;
+        background-color: white;
+        display: flex;
+        font-size: 20px;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .item {
+        width: 100%;
+        display: flex;
+        background-color: beige;
+        justify-content: flex-end;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    .item h2,
+    .item h3,
+    .item button {
+        margin-left: 100px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .item button {
+        padding: 20px;
+        border-radius: 20px;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+
+        <header></header>
+        <h1>我的車庫</h1>
+        <table>
+            <tr>
+                <td>商品圖</td>
+                <td>商品名稱</td>
+                <td>數量</td>
+                <td>價格</td>
+                <td>刪除</td>
+            </tr>
+            <tr>
+                <td><img :src="img"></td>
+                <td>{{itemName}}</td>
+                <td><span @click='changenum(+1)' v-show='show'><i class="fas fa-plus"></i></span>{{amount}} <span @click='changenum(-1)' v-show='show'><i class="fas fa-minus"></i></span></td>
+                <td>NT$<span>{{price}}</span></td>
+                <td><span><i class="fas fa-trash"></i></span></td>
+            </tr>
+        </table>
+        <div class="item">
+            <h2>總計</h2>
+            <h3>NT${{price}}</h3>
+            <button>繼續購物</button>
+            <button>立即結帳</button>
+        </div>
+        <footer></footer>
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                img: '/img/log-115px.png',
+                itemName: 'SP-20',
+                amount: 0,
+                price: 0,
+            },
+            methods: {
+                changenum(num) {
+                    this.amount += num;
+                    this.price = 200 * this.amount;
+                    if (this.amount < 1) {
+                        this.amount = 0;
+                        this.price = 0;
+                    }
+                }
+            },
+            computed: {
+                show() {
+                    if (this.amount >= 0) {
+                        return true;
+                    } else {
+                        return false;
+                    };
+                }
+            },
+        })
+    </script>
+
+
+
+</body>
+
+</html>

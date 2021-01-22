@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+
+
+
+    <div id="app">
+        <h1-part :gender="gender">123</h1-part>
+        <!-- <h1>{{email}}</h1> -->
+    </div>
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js'></script>
+
+    <script>
+        let data = {};
+
+
+        axios.get('https://randomuser.me/api/')
+            .then((res) => {
+
+                let database = res.data.results[0];
+                data['gender'] = database.gender;
+                data['email'] = database.email;
+
+            });
+
+
+
+        Vue.component('h1-part', {
+
+            props: ['gender'],
+
+            template: `<h1>{{gender}}</h1>`
+
+        })
+
+        let vm = new Vue({
+
+            el: '#app',
+            data() {
+                return data
+            }
+
+
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

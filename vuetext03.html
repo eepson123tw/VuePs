@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay10</title>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <p class='first'>
+            {{name}}-{{status}}-{{years}}-{{favorsnow}}-{{member}}
+        </p>
+        <div class="two">
+            <p>姓名: <input type="text" v-model='name'></p>
+            <p>性別: <input type="radio" v-model='status' value='woman'>女 <input type="radio" v-model='status' value='man'>男</p>
+            <p>年齡:
+                <select v-model='years'>
+                    <option>20~30</option>
+                    <option>30~40</option>
+                    <option>50~60</option>
+                </select>
+            </p>
+            <p>興趣: <button v-for='fav of favors' @click='favornow'>{{fav}}</button>
+            </p>
+            <p>
+                會員: <input type="checkbox" v-model='member'>加入或死亡
+            </p>
+        </div>
+
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <script>
+        let vm = new Vue({
+
+            el: '#app',
+            data: {
+                name: 'alex',
+                status: '',
+                years: '20~30',
+                favors: ['play code',
+                    '電玩',
+                    '游日本',
+                ],
+                favorsnow: '',
+                member: true,
+            },
+            methods: {
+                favornow(e) {
+                    this.favorsnow = e.target.innerText;
+                }
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

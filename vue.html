@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <title>Vue</title>
+</head>
+
+<body>
+    <div class="abc">
+        <h1></h1>
+    </div>
+    <div class="div">
+        <!-- temolate  模板 把 網頁轉成模板，樣板語法 Mustache tag -->
+        <h1>{{p}},{{company}},{{year}}</h1>
+        <p></p>
+        <p></p>
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+
+    <script>
+        $(function() {
+
+        })
+    </script>
+
+    <script>
+        ; //以防code被連上去
+        (function() {
+            //資料
+            let data = {
+                h1: '123',
+                p: '版權所有.QWERT',
+                company: '123123123123',
+                year: '@' + new Date().getFullYear(),
+
+            };
+
+            let vm = new Vue({
+                el: '.div',
+                data: data
+            })
+
+        })();
+    </script>
+
+
+
+</body>
+
+</html>

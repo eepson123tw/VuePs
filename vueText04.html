@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text04</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        #app {
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 100px auto;
+            width: 500px;
+            height: 500px;
+            text-align: center;
+            background-color: bisque;
+        }
+        
+        select {
+            width: 10%;
+            height: 5%;
+        }
+        
+        input {
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <select v-model="choosetype">
+            <option v-for="item of type">{{item}}</option>
+        </select>
+        <input type="text" v-model='textarea' @keyup.enter="enterHandler">
+
+        <div class="text" v-for="item of seletChange">
+            <h1>type:{{item.type}}</h1>
+            <p>身分證號碼:{{item.password}}</p>
+        </div>
+
+
+
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <Script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data: {
+
+                choosetype: 1,
+                textarea: '請輸入您的身分證',
+                type: [1, 2, 3, 'all'],
+                list: [{
+                    type: '1',
+                    password: 132546879,
+                }, {
+                    type: '2',
+                    password: 132546879,
+                }, {
+                    type: '3',
+                    password: 132546879,
+                }],
+
+
+            },
+            methods: {
+                enterHandler() {
+
+                    let [type, password] = [this.choosetype, this.textarea];
+
+                    this.list.push({
+                        type,
+                        password
+                    })
+                    this.textarea = '請輸入您的身分證';
+                }
+            },
+            computed: {
+                seletChange() {
+
+                    if (this.choosetype == 'all') {
+
+                        return this.list;
+
+                    } else {
+                        return this.list.filter((item) => this.choosetype == item.type)
+                    }
+
+
+                }
+            },
+
+
+
+
+        })
+    </Script>
+
+
+</body>
+
+</html>

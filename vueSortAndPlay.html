@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text04</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        #app {
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 100px auto;
+            width: 500px;
+            height: 500px;
+            text-align: center;
+            background-color: bisque;
+        }
+        
+        select {
+            width: 10%;
+            height: 5%;
+        }
+        
+        input {
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <select>
+            <option value=""></option>
+        </select>
+        <select name="" id="">
+            <option value=""></option>
+        </select>
+
+        <h1></h1>
+
+    </div>
+
+
+
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <Script>
+        let vm = new Vue({
+
+            el: '#app',
+
+            data: {
+                menuList: [{
+                    animalType: 'dog',
+                    name: 'alex',
+                    size: 'small'
+                }, {
+                    animalType: 'cat',
+                    name: 'alex2',
+                    size: 'big'
+                }, {
+                    animalType: 'dog',
+                    name: 'sira',
+                    size: 'small'
+                }, {
+                    animalType: 'cat',
+                    name: 'sara',
+                    size: 'middle'
+                }, {
+                    animalType: 'mouse',
+                    name: 'kiki',
+                    size: 'small'
+                }, {
+                    animalType: 'dog',
+                    name: 'caca',
+                    size: 'big'
+                }, {
+                    animalType: 'cat',
+                    name: 'titi',
+                    size: 'small'
+                }, {
+                    animalType: 'mouse',
+                    name: 'qiri',
+                    size: 'big'
+                }, {
+                    animalType: 'cat',
+                    name: 'azki',
+                    size: 'small'
+                }, {
+                    animalType: 'mouse',
+                    name: 'kikikiki',
+                    size: 'small'
+                }]
+
+            },
+            computed: {
+
+                typeList() {
+
+                    let obj = {
+                        sort: [],
+                        map: {},
+                    }
+
+                    this.menuList.forEach(({ //陣列中的每筆物件進行解構
+                        animalType,
+                        name,
+                        size
+                    }, index) => {
+
+                        if (!obj.map[animalType]) { //這個類型還未篩過
+                            obj.sort.push(animalType);
+                            obj.map[animalType] = {
+                                name: [],
+                                size: {},
+                            }
+                        }
+                        obj.map[animalType].name.push(name);
+                        obj.map[animalType].size[size] = {
+                            index,
+                            size
+                        };
+
+                    })
+                    return obj;
+
+
+
+
+
+
+
+                },
+
+
+            },
+
+
+
+
+        })
+    </Script>
+
+
+</body>
+
+</html>

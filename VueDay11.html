@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueDay11</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <basic-component v-model="text"></basic-component>
+
+
+    </div>
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+    <script>
+        Vue.component('BasicComponent', {
+            template: `<div class='basic-component' @click.native="clickHandler">
+            BasicComponent</div>`,
+            model: { //告訴模組v-model綁在何處並偵聽事件
+                prop: "active", //綁定參數
+                event: "component-event", //綁定克制觸發事件
+            },
+            props: { // 宣告有此資料
+                active: {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+            methods: {
+                clickHandler() {
+                    this.$emit("component-event", !this.active); //打事件出來?
+                }
+            },
+        })
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    text: true,
+                }
+            },
+            methods: {
+                eventHandler() {
+                    console.log(`123`);
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
