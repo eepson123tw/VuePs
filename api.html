@@ -6,12 +6,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Api</title>
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    #app {
+        width: 500px;
+        height: 500px;
+        margin: 100px auto;
+        line-height: 2;
+        text-align: center;
+        background-color: chartreuse;
+    }
+</style>
 
 <body>
 
+    <div id="app">
+        <div v-if="loading">
+            loading
+        </div>
+        <div class="text" v-else>
+            <h1>測試api中</h1>
+            <p><input type="text" placeholder="名字" v-model.trim="input.name"><button @click="addName">send</button></p>
+            <p><input type="text" placeholder="信箱" v-model.trim="input.email"><button @click="cancelAll">cancel</button></p>
+            <h3 v-for="item of contact">{{item.name}}----{{item.email}}</h3>
+        </div>
 
+    </div>
 
 
 </body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js'></script>
+
+<script>
+    ;
+    (function(Vue) {
+
+        new Vue({
+
+            el: '#app',
+            data: {
+                loading: false,
+                contact: [],
+                input: {
+                    name: '',
+                    email: '',
+                }
+            },
+            methods: {
+                addName() {
+                    let {
+
+                        name,
+                        email
+                    } = this.input;
+
+                    if (!name || !email) return;
+
+
+                    this.loading = true;
+                    axios.post("http://localhost:8888/contact", this.input).then((res) => {
+                        this.contact.push(res.data);
+                        this.loading = false;
+                        this.cancelAll();
+                    }).catch((err) => {
+                        console.log(err)
+                    });
+
+
+
+                },
+                cancelAll() {
+                    this.input.name = "";
+                    this.input.email = "";
+                },
+            },
+            mounted() {
+                this.loading = true;
+                axios.get("http://localhost:8888/contact")
+                    .then((res) => {
+                        // console.log(res)
+                        this.contact = res.data;
+                        this.loading = false;
+
+                    }).catch((err) => {
+                        console.log(err)
+                    });
+
+
+
+            },
+
+        })
+
+
+    })(Vue)
+</script>
+
 
 </html>
