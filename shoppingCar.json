@@ -1,14 +1,11 @@
 {
-
-    "data": [{
-        "img": "https://picsum.photos/200/300?grayscale",
-        "itemName": "PIC-12",
-        "price": 200,
-        "num": 1,
-        "id": 1
-
-    }]
-
-
-
+  "data": [
+    {
+      "img": "https://picsum.photos/200/300?grayscale",
+      "price": "123",
+      "itemName": "123",
+      "num": 1,
+      "id": 1
+    }
+  ]
 }

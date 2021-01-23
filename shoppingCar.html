@@ -61,28 +61,32 @@
             <h1>購物車</h1>
 
 
-            <table v-if="loading">
-                <tr>loading page</tr>
-            </table>
-
-            <table v-else>
-                <tr>
-                    <td>商品圖</td>
-                    <td>商品名稱</td>
-                    <td>商品價格</td>
-                    <td>數量</td>
-                    <td>刪除</td>
-                </tr>
-                <tr v-else>
-                    <td><img src="https://picsum.photos/200/300?grayscale" alt=""></td>
-                    <td>PIC-12</td>
-                    <td>NT$ <span>200</span> </td>
-                    <td> <i class="fas fa-plus"></i> 2 <i class="fas fa-minus"></i></td>
-                    <td> <button>刪除</button> </td>
-                </tr>
-            </table>
-
-
+            <div v-if="loading">
+                loading..... loading..... loading..... loading.....
+            </div>
+            <div v-else>
+                <table>
+                    <tr>
+                        <td>商品圖</td>
+                        <td>商品名稱</td>
+                        <td>商品價格</td>
+                        <td>數量</td>
+                        <td>刪除</td>
+                    </tr>
+                    <tr v-for="(item,index) of buyList">
+                        <td><img :src="item.img"></td>
+                        <td>{{item.itemName}}</td>
+                        <td>NT$ <span>{{item.price}}</span> </td>
+                        <td> <i class="fas fa-plus"></i>{{item.num}}<i class="fas fa-minus"></i></td>
+                        <td> <button @click="deleteHander(index)">刪除</button> </td>
+                    </tr>
+                </table>
+            </div>
+            <p>
+                <input type="text" placeholder="上架商品價格" v-model='input.price'>
+                <input type="text" placeholder="上架商品名稱" v-model='input.itemName'>
+            </p>
+            <button @click='gotoTop'>上架</button>
 
 
 
@@ -107,29 +111,57 @@
                 data: {
 
                     buyList: [],
-                    loading = true,
+                    loading: false,
+                    input: {
+                        img: 'https://picsum.photos/200/300?grayscale',
+                        price: null,
+                        itemName: '',
+                        num: 1,
+                    }
+
+                },
+                methods: {
+                    gotoTop() {
+
+                        let {
+                            price,
+                            itemName
+                        } = this.input;
+
+                        if (!price || !itemName) return;
+                        this.loading = true;
+
+                        axios.post("http://localhost:8888/data", this.input).then((res) => {
+                            this.buyList.push(res.data);
+                            this.loading = false;
+                        });
+                        this.input.price = null;
+                        this.input.itemName = '';
+                    },
+                    deleteHander(index) {
+                        let target = this.buyList[index];
+                        if (confirm(`是否刪除? ${target.itemName}`)) {
+                            this.loading = true;
+                            axios.delete(`http://localhost:8888/data/` + target.id).then((res) => {
+
+                                this.buyList.splice(index, 1);
+                                this.loading = false;
+
+                            })
+                        }
+                    },
 
                 },
                 mounted() {
-
+                    this.loading = true;
                     axios.get("http://localhost:8888/data")
                         .then((res) => {
-
-                            // this.loading = true;
-                            this.buyList.push(res.data);
-
-                            console.log(res);
-
+                            this.buyList = res.data;
+                            this.loading = false;
 
                         }).catch((err) => {
-
                             console.log(err);
-
                         })
-
-
-
-
                 },
 
 
