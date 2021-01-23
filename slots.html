@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slots</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <basic-one :title="title" @wow="change">
+
+            <!-- <h1>{{msg}}</h1> -->
+
+            <template v-slot:header>Header</template>
+
+            <template v-slot:default="{data}">
+                {{data.first}}
+            </template>
+
+        </basic-one>
+
+
+
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+
+    <script>
+        ;
+        (function(Vue) {
+
+            Vue.component("basic-one", {
+
+                props: {
+                    title: String,
+                    required: true,
+                },
+                data() {
+                    return {
+                        msg: `su3cl`,
+                        insideData: {
+                            first: "Alex",
+                            last: "chen",
+                        }
+                    }
+                },
+                template: `<div @click="changeTask"> 
+
+                    <header><slot name="header">this is header</slot></header>
+                    <slot v-bind:data="insideData"></slot>
+                    <footer>this is footer</footer>
+                    </div>`,
+                methods: {
+                    changeTask() {
+                        this.$emit('wow');
+                    }
+                }
+            })
+
+
+
+
+            new Vue({
+
+                el: '#app',
+                data: {
+                    title: "121231233",
+                    slots: "default",
+                    msg: `Alex`,
+
+                },
+                methods: {
+                    change() {
+                        this.title = `312`;
+                    }
+                }
+
+
+            })
+
+
+
+
+
+
+
+        })(Vue)
+    </script>
+
+
+
+</body>
+
+
+
+
+
+
+</html>

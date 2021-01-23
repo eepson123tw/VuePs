@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ulli</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .wrapper {
+        width: 500px;
+        height: 300px;
+        margin: 100px auto;
+    }
+    
+    ul {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    li {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        background-color: red;
+        border-radius: 100px;
+        position: relative;
+    }
+    
+    li:nth-child(3) {
+        background-color: pink;
+    }
+    
+    li:nth-child(1):after,
+    li:nth-child(2):after {
+        position: absolute;
+        content: "";
+        display: block;
+        width: 50px;
+        height: 3px;
+        background-color: red;
+        top: 50%;
+        left: 100%;
+    }
+    
+    li:nth-child(2):after {
+        background-color: peachpuff;
+    }
+</style>
+
+<body>
+
+    <div class="wrapper">
+
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+
+
+
+    </div>
+
+
+</body>
+
+</html>
