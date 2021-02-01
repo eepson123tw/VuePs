@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>text</title>
+</head>
+
+<body>
+
+    <div class="" id="app">
+
+        <input type="text" name="" id="" v-model="index" placeholder="請選擇">
+        <p>縣市:<select v-model="chooseCountry">
+                <option
+                    disabled
+                    value=""
+                >請選擇</option>
+                <option
+                    v-for="(item,index) of countrylist"
+                    :data-id="index"
+                >{{item.name}}</option>
+            </select></p>
+        <p>區域:<select name="" id="" v-model="chooseTown" @change="searchHandler">
+                <option
+                    disabled
+                    value=""
+                >請選擇</option>
+                <option v-for="(item,index) of nameList">{{item.name}}</option>
+            </select></p>
+
+        <h1>郵遞區號:{{index}}</h1>
+        <h1>{{chooseCountry}}:{{chooseTown}}</h1>
+    </div>
+
+
+
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.js' integrity='sha512-HBD0cOZJYcymSn0H0CnN3VBhQLdiH8imucm16ZQ792TT2n48u6nmX+T7hZTCwmzIrgMt76x4rHhR7KkZqhIGxA==' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js' integrity='sha512-otOZr2EcknK9a5aa3BbMR9XOjYKtxxscwyRHN6zmdXuRfJ5uApkHB7cz1laWk2g8RKLzV9qv/fl3RPwfCuoxHQ==' crossorigin='anonymous'></script>
+    <script>
+        new Vue({
+
+            el: "#app",
+
+            data: {
+                chooseCountry: "",
+                chooseTown: '',
+                searchtext: '',
+                index: '',
+                countrylist: [],
+
+            },
+            mounted() {
+                axios.get('./taiwan_districts.json').then((res) => {
+                    this.countrylist = res.data;
+                })
+            },
+            methods: {
+                nameChange(e) {
+                    console.log(e.target.dataset);
+                },
+                searchHandler() {
+                    let text = this.nameList.filter((item) => {
+                        return item.name == this.chooseTown
+                    })
+                    this.index = text[0].zip
+                }
+            },
+            computed: {
+
+                nameList() {
+
+                    let x = _.filter(this.countrylist, {
+                        'name': this.chooseCountry
+                    });
+                    let y = x.map((item) => {
+                        return item.districts
+                    });
+                    return y[0];
+                },
+                serach() {
+
+                    // return _.filter(this.countrylist, {
+                    //     'name': this.chooseCountry
+                    // });
+
+
+                }
+            },
+
+
+
+
+        })
+    </script>
+
+</body>
+
+</html>
