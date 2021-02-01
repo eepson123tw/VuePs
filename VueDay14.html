@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixin </title>
+</head>
+
+<body>
+
+    <div class="" id="app">
+        <cac-dad v-for="item in count" :key="item" :count="count"></cac-dad>
+        <button @click="clickHandler">{{count}}</button>
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+    <script>
+        // const mixin1 = {
+
+        //     methods: {
+
+        //         log(msg) {
+        //             console.log('1');
+        //         }
+
+        //     }
+
+        // };
+
+        // const mixin2 = {
+
+        //     methods: {
+
+        //         log(msg) {
+        //             console.log('2');
+        //         }
+
+        //     },
+        //     created() {
+        //         console.log(`123`);
+        //     }
+
+        // };
+        // Register a global custom directive called `v-focus`
+        Vue.directive('focus', {
+            // When the bound element is inserted into the DOM...
+            inserted: function(el, binding) {
+                // Focus the element
+                console.log(binding);
+                el.focus()
+            }
+        })
+
+        Vue.component('cac-dad', {
+
+            props: ["count"],
+            template: `<p><input v-focus="count"  /></p>`,
+        });
+
+
+        new Vue({
+            el: "#app",
+            // mixins: [mixin2],
+
+            data() {
+
+                return {
+
+                    count: 0,
+
+                }
+
+
+            },
+
+            methods: {
+
+                clickHandler() {
+
+                    this.count++;
+
+
+                }
+            },
+            created() {
+                console.log(`4444`);
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

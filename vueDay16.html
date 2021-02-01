@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day16</title>
+</head>
+
+<style>
+    .router-link-exact-active {
+        color: red;
+    }
+    /* 麵包穴的感覺 */
+    /* .router-link-active {
+        color: wheat;
+    } */
+</style>
+
+<body>
+
+
+
+    <div id="app">
+
+        <!-- 路由規格對應出來的component -->
+
+        <p>
+            <!-- 類似alink -->
+            <router-link to="/">本頁</router-link>
+            <router-link to="Pag1">pag1</router-link>
+            <router-link to="Pag2">pag2</router-link>
+
+        </p>
+
+
+
+        <router-view></router-view>
+
+
+
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js' integrity='sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ==' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.5.1/vue-router.js' integrity='sha512-mQKtM7fSv7pIQ6r4Jqe7c7K3QKEa1G+qNp0o9ohfGNeTT7pl85our+sPlSkzogl1oChZj75zhq9HGAj7Pf4Wjw==' crossorigin='anonymous'></script>
+
+    <script>
+        const Pag1 = {
+            template: `<h1>123123123</h1>`,
+        };
+        const Pag2 = {
+            template: `<h1>45645654654</h1>`,
+        };
+        const Pag3 = {
+            template: `<h1>wow router</h1>`,
+        };
+        const Error = {
+            template: `<h1>4004notfound</h1>`,
+        };
+
+        const router = new VueRouter({
+
+            //   path: '/',跟目錄
+            routes: [{
+                path: '/', //網址
+                component: Pag3, //畫面
+            }, {
+                path: '/Pag1', //網址
+                component: Pag1, //畫面
+            }, {
+                path: '/Pag2', //網址
+                component: Pag2, //畫面 
+            }, {
+                path: '*', //網址
+                component: Error, //畫面 
+            }],
+
+        })
+
+
+        new Vue({
+
+            //router 實體 --控制 
+            //route  撈資料
+            el: '#app',
+            router,
+
+
+        })
+    </script>
+
+
+</body>
+
+</html>

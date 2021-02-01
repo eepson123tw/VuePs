@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+
+
+
+</body>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.3/vue-router.cjs.js'></script>
+
+
+
+
+<script>
+    const MyPlugin = {
+
+        install: function(Vue, options) {
+
+            console.log(Vue, optoins)
+
+        },
+
+    }
+
+    Vue.use(MyPlugin, {
+        test: true
+    })
+
+
+    new Vue({
+
+        el: "#app",
+
+    })
+</script>
+
+
+
+</html>
